@@ -1,0 +1,18 @@
+<!--pages/addActivity/addActivity.wxml-->
+<view class="container">
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class='one_line'>
+      <view class='info'>活动标题：</view>
+      <view class='title'>
+          <input name="title" placeholder="输入标题"/>
+      </view>
+    </view>
+    <view class='item'>
+      <view class='info'>活动内容：</view>
+      <view class='content'>
+          <textarea name="content" placeholder="输入内容"/>
+      </view>
+    </view>
+
+  </form>
+</view>
