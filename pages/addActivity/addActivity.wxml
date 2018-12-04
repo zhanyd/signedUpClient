@@ -13,6 +13,45 @@
           <textarea name="content" placeholder="输入内容"/>
       </view>
     </view>
+    <view class='one_line'>
+      <view class="section">
+        <picker mode="date" name="activityDate" start="{{today}}" value="{{activityDate}}" bindchange="bindDateChange">
+          <view class="picker">
+            活动日期: {{activityDate}}
+          </view>
+        </picker>
+      </view>
+    </view>
 
+    <view class='one_line'>
+      <view class="section">
+        <picker mode="time" name="activityTime" value="{{activityTime}}" bindchange="bindTimeChange">
+          <view class="picker">
+            活动时间: {{activityTime}}
+          </view>
+        </picker>
+      </view>
+    </view>
+
+
+    <view class='one_line'>
+      <view class="section">
+        <picker mode="date" name="cutOffDate" end="{{activityDate}}" value="{{cutOffDate}}" bindchange="bindCutOffDateChange">
+          <view class="picker">
+            截止日期: {{cutOffDate}}
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <view class='one_line'>
+      <view class="section">
+        <picker mode="time" name="cutOffTime" value="{{cutOffTime}}" bindchange="bindCutOffTimeChange">
+          <view class="picker">
+            截止时间: {{cutOffTime}}
+          </view>
+        </picker>
+      </view>
+    </view>
   </form>
 </view>

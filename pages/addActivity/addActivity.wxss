@@ -12,10 +12,10 @@
 .one_line{
    display: flex;
    border-bottom:rgb(194, 194, 194) solid 1rpx;
-   margin-bottom: 10rpx; 
+   margin-bottom: 20rpx; 
 }
 
 .item{
   border-bottom:rgb(194, 194, 194) solid 1rpx;
-  margin-bottom: 10rpx; 
+  margin-bottom: 20rpx; 
 }
