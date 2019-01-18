@@ -1,4 +1,9 @@
 // pages/addActivity/addActivity.js
+
+// 引入SDK核心类
+let QQMapWX = require('../../libs/qqmap-wx-jssdk.js');
+let qqmapsdk;
+
 Page({
 
   /**
@@ -9,7 +14,12 @@ Page({
     activityDate: '',
     activityTime: '09:00',
     cutOffDate: '',
-    cutOffTime: '09:00'
+    cutOffTime: '09:00',
+    latitude: '',
+    longitude: '',
+    centerLongitude: '',
+    centerLatitude: '',
+    markers: []
   },
 
   /**
@@ -22,20 +32,38 @@ Page({
       cutOffDate: this.getNowFormatDate(1)
     })
     console.log(this.data.activityDate)
+
+    // 实例化API核心类
+    qqmapsdk = new QQMapWX({
+      key: 'BPZBZ-VW7HR-VPEW2-WVCJ7-6UPNT-AGF6S'
+    });
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    this.mapCtx = wx.createMapContext('myMap')
+
+    //获取当前位置
+    let that = this
+    wx.getLocation({
+      type: 'gcj02',
+      success: function (res) {
+        that.setData({
+          longitude: res.longitude,
+          latitude: res.latitude
+        })
+        that.mapCtx.moveToLocation()
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+   
   },
 
   /**
@@ -114,6 +142,68 @@ Page({
     }
     let currentdate = year + seperator1 + month + seperator1 + strDate;
     return currentdate;
+    },
+
+  /**
+   * 移动到坐标
+   */
+  moveToLocation: function () {
+    this.mapCtx.moveToLocation()
+  },
+
+  /**
+   * 拖动地图回调
+   */
+  regionChange: function (res) {
+    // 改变中心点位置  
+    if (res.type == "end") {
+      this.getCenterLocation();
     }
-    
+  },
+
+  /**
+  * 得到中心点坐标
+  */
+  getCenterLocation: function () {
+    let that = this;
+    this.mapCtx.getCenterLocation({
+      success: function (res) {
+        console.log(res);
+        that.setData({
+          centerLongitude: res.longitude,
+          centerLatitude: res.latitude
+        })
+        that.regeocodingAddress();
+      }
+    })
+  },
+
+  /**
+   * 逆地址解析
+   */
+  regeocodingAddress: function () {
+    let that = this;
+    //通过经纬度解析地址
+    qqmapsdk.reverseGeocoder({
+      location: {
+        latitude: that.data.centerLatitude,
+        longitude: that.data.centerLongitude
+      },
+      success: function (res) {
+        console.log(res);
+        /*that.setData({
+          centerAddressBean: res.result,
+          selectAddress: res.result.formatted_addresses.recommend,
+          currentProvince: res.result.address_component.province,
+          currentCity: res.result.address_component.city,
+          currentDistrict: res.result.address_component.district,
+        })*/
+      },
+      fail: function (res) {
+        console.log(res);
+      }
+    });
+  },
+
+
   })

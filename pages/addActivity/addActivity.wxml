@@ -53,5 +53,32 @@
         </picker>
       </view>
     </view>
+
+    <view class='item'>
+         <view class='info'>活动地点：</view>
+         <view class='content'>
+          <map
+            id="myMap"
+            style="width: 100%; height: 300px;"
+            longitude="{{longitude}}" 
+            latitude="{{latitude}}" 
+            show-location="true" 
+            markers="{{markers}}"
+            bindmarkertap="bindMakertap"
+            bindcontroltap='controlTap' 
+            bindregionchange='regionChange' 
+            controls='{{controls}}'
+            bindtap='bindMapTap'
+          >
+            <cover-image class="cover-image" src="../images/location.png" />
+            <!--<cover-view class="image-cnt">
+            </cover-view>-->
+          
+          </map>
+        </view>
+       
+    </view>
+
+   
   </form>
 </view>
