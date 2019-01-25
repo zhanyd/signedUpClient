@@ -19,8 +19,9 @@ Page({
     longitude: '',
     centerLongitude: '',
     centerLatitude: '',
-    markers: []
-  },
+    markers: [],
+    currentAddress: '' //当前选择地址
+   },
 
   /**
    * 生命周期函数--监听页面加载
@@ -168,7 +169,6 @@ Page({
     let that = this;
     this.mapCtx.getCenterLocation({
       success: function (res) {
-        console.log(res);
         that.setData({
           centerLongitude: res.longitude,
           centerLatitude: res.latitude
@@ -183,6 +183,8 @@ Page({
    */
   regeocodingAddress: function () {
     let that = this;
+    console.log("that.data.centerLatitude = " + that.data.centerLatitude);
+    console.log("that.data.centerLongitude = " + that.data.centerLongitude);
     //通过经纬度解析地址
     qqmapsdk.reverseGeocoder({
       location: {
@@ -191,13 +193,9 @@ Page({
       },
       success: function (res) {
         console.log(res);
-        /*that.setData({
-          centerAddressBean: res.result,
-          selectAddress: res.result.formatted_addresses.recommend,
-          currentProvince: res.result.address_component.province,
-          currentCity: res.result.address_component.city,
-          currentDistrict: res.result.address_component.district,
-        })*/
+        that.setData({
+          currentAddress: res.result.address_component.city + res.result.address_component.district +           res.result.address_component.street
+        })
       },
       fail: function (res) {
         console.log(res);

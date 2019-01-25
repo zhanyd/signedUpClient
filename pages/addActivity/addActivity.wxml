@@ -38,7 +38,7 @@
       <view class="section">
         <picker mode="date" name="cutOffDate" end="{{activityDate}}" value="{{cutOffDate}}" bindchange="bindCutOffDateChange">
           <view class="picker">
-            截止日期: {{cutOffDate}}
+            报名截止日期: {{cutOffDate}}
           </view>
         </picker>
       </view>
@@ -48,14 +48,19 @@
       <view class="section">
         <picker mode="time" name="cutOffTime" value="{{cutOffTime}}" bindchange="bindCutOffTimeChange">
           <view class="picker">
-            截止时间: {{cutOffTime}}
+            报名截止时间: {{cutOffTime}}
           </view>
         </picker>
       </view>
     </view>
 
     <view class='item'>
-         <view class='info'>活动地点：</view>
+         
+        <view class='info'>活动地点：</view>
+        <view class='title'>
+            <input name="address" value='{{currentAddress}}' placeholder="拖动地图选择"/>
+        </view>
+    </view>    
          <view class='content'>
           <map
             id="myMap"
@@ -63,11 +68,7 @@
             longitude="{{longitude}}" 
             latitude="{{latitude}}" 
             show-location="true" 
-            markers="{{markers}}"
-            bindmarkertap="bindMakertap"
-            bindcontroltap='controlTap' 
             bindregionchange='regionChange' 
-            controls='{{controls}}'
             bindtap='bindMapTap'
           >
             <cover-image class="cover-image" src="../images/location.png" />
@@ -77,7 +78,7 @@
           </map>
         </view>
        
-    </view>
+   
 
    
   </form>
