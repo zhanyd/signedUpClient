@@ -29,3 +29,8 @@
   margin-top: -40px;
 }
 
+.btn-area{
+  display:flex;
+  margin-top:20rpx;
+
+}

@@ -78,7 +78,10 @@
           </map>
         </view>
        
-   
+    <view class="btn-area">
+      <button type="primary" style="width:30%;" formType="submit">提交</button>
+      <button type="default" style="width:30%;" formType="reset">重置</button>
+    </view>
 
    
   </form>
