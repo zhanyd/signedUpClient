@@ -1,4 +1,4 @@
-// pages/signedUp/signedUp.js
+// pages/activityIndex/activityIndex.js
 Page({
 
   /**
