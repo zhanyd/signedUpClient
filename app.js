@@ -9,8 +9,37 @@ App({
     // 登录
     wx.login({
       success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
         console.log(res)
+
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        wx.request({
+          url: this.globalData.url + '/activity/getOpenidAndSession',
+          data: {
+            code: res.code
+          },
+          header: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          success: res => {
+            console.log(res)
+            wx.setStorage({
+              key: "openid",
+              data: res.data.data.openid
+            })
+
+            wx.setStorage({
+              key: "sessionKey",
+              data: res.data.data.sessionKey
+            })
+
+            wx.setStorage({
+              key: "token",
+              data: res.data.data.token
+            })
+
+            console.log(res.data.data.token)
+          }
+        })
       }
     })
     // 获取用户信息
@@ -35,6 +64,8 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    url: "http://10.145.13.31:8080"
+    //url: "https://www.yidinghenbang.com"
   }
 })

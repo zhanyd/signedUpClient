@@ -4,7 +4,7 @@
       发起一个新活动
     </view>
     <view class="btn-area">
-      <button type="primary">发起活动</button>
+      <button type="primary" bindtap="navigateToAddActivity">发起活动</button>
     </view>
 
 </view>

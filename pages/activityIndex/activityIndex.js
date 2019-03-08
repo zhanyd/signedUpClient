@@ -62,5 +62,14 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  
+  /**
+   * 跳转到发起活动页面
+   */
+  navigateToAddActivity: function () {
+    wx.navigateTo({
+      url: '../addActivity/addActivity'
+    })
   }
 })

@@ -1,9 +1,9 @@
 // pages/addActivity/addActivity.js
 
 // 引入SDK核心类
-let QQMapWX = require('../../libs/qqmap-wx-jssdk.js');
-let qqmapsdk;
-
+let QQMapWX = require('../../libs/qqmap-wx-jssdk.js')
+let qqmapsdk
+const app = getApp()
 Page({
 
   /**
@@ -206,7 +206,7 @@ Page({
   formSubmit: function (e) {
     console.log('form发生了submit事件，携带数据为：', e.detail.value)
 
-    if (e.detail.value.title.length == 0) {
+    if (e.detail.value.activityTitle.length == 0) {
 
       wx.showToast({
         title: '标题内容不能为空!',
@@ -217,7 +217,7 @@ Page({
       return
     }
 
-    if (e.detail.value.content.length == 0) {
+    if (e.detail.value.activityContent.length == 0) {
 
       wx.showToast({
         title: '问题内容不能为空!',
@@ -229,17 +229,34 @@ Page({
     }
 
     wx.request({
-      url: app.globalData.url + '/user/addNewQuestion',
+      url: app.globalData.url + '/activity/updateActivity',
       data: {
-        userId: wx.getStorageSync('userId'),
-        title: e.detail.value.title,
-        content: e.detail.value.content
+        activityTitle: e.detail.value.activityTitle,
+        activityContent: e.detail.value.activityContent,
+        activityTime: e.detail.value.activityDate + ' ' + e.detail.value.activityTime,
+        cutOffTime: e.detail.value.cutOffDate + ' ' + e.detail.value.cutOffTime,
+        location: e.detail.value.address,
+        longitude: this.data.centerLongitude,
+        latitude: this.data.centerLatitude
       },
       header: {
+        'Authorization': wx.getStorageSync('token'),
         "Content-Type": "application/x-www-form-urlencoded"
       },
       success: function (res) {
         console.log(res.data)
+        if(res.code == '501'){
+          console.log('token 过期')
+          wx.showToast({
+            title: 'token过期,请重新登录',
+            icon: 'none',
+            duration: 1500
+          })
+          // 跳到登录页
+          wx.navigateTo({
+            url: '../questionList/questionList'
+          })
+        }
         wx.navigateTo({
           url: '../questionList/questionList'
         })
